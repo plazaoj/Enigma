@@ -13,6 +13,7 @@ enum TipoMaq
     KS,
   };
 
+
 class ENIGMA
 {
 private:
@@ -33,6 +34,7 @@ private:
 
  
 public:
+
   char Ring[5];
   char Key[5];
   char Walze[6];

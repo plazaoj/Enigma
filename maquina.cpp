@@ -32,7 +32,7 @@ maquina::maquina()
   
   // Tipo de maquina
   command_map["tipo"]=CAMBIAMAQ;
-  command_map["M4"]=M4; // Militar M3 y M4
+  command_map["M4"]=SETM4; // Militar M3 y M4
   command_map["KF"]=KF; // Comercial, conexion F (Enigma española)
   command_map["KC"]=KC;
   command_map["KD"]=KD;
@@ -179,7 +179,7 @@ int maquina::command(int cmd,std::string param)
 	enigma.Reset();
 	break;
       }
-  case M4:
+  case SETM4:
     {
       maqerr(cambiamaq("M4"));
       break;
@@ -604,10 +604,12 @@ void maquina::Ayuda()
   printf("                              con x={A...Z}\n\n");
   printf("   start xxxx | key xxxx          Configurar la posición de inicio ruedas\n");
   printf("                              con x={A...Z}\n\n");
-  printf("  NOTA: La configuracion BBxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector B\n");
-  printf("      y la configuracion CGxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector C\n\n");
   printf("  plug ABCDEFGH...                Conecta el Stecker\n");
   printf("                                  Conecta A con B, C con D, E con F, etc...\n\n");
+  printf("  unplug                          Desconecta el Stecker\n");
+  printf("  NOTA: La configuracion BBxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector B\n");
+  printf("      y la configuracion CGxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector C\n\n");
+  
 
   printf("*  Maquina K (comercial) *\n");
   printf("   ruedas XXX || walze  XXX       Configurar ruedas\n");
@@ -625,12 +627,16 @@ void maquina::Ayuda()
   printf("  KF                              Modelo comercial usado en España durante la guerra civil\n");  
   printf("  KD | KD | KS                    Máquina  comercial, con distintos cableados de ruiedas\n\n");
 
-  printf("*  Otros comandos  *\n");
-  printf("  reset                           Restablece la posición de inicio\n");
+
+  printf("*  Codificación *\n");
   printf("  texto                           Modo edicion para codificar un texto. salir con ESC\n");
   printf("  code <texto>                    Codifica el <texto>\n");
   printf("  fichero <filein> [fileout]      Abre y codifica el <filein>, y lo escribe en <fileout>\n");
   printf("                                  Si no se indica fileout, escribe en la consola\n");
+
+  
+  printf("*  Otros comandos  *\n");
+  printf("  reset                           Restablece la posición de inicio\n");
   printf("  salir | quit | exit | ctrl+d    Salir\n");
   printf("  ayuda | help | lista            Muestra esta ayuda\n");
   printf("\n-----------------------------\n");

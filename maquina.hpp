@@ -40,7 +40,8 @@ enum EnigmaCMD
     QCODE,    
     ERRFICHERO,
     TIPOINCORRECTO,
-    LISTACMD
+    LISTACMD,
+    SETM4
   };
 class maquina
 {
