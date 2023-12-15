@@ -3,5 +3,5 @@
 !*.cpp
 !*.hpp
 !.gitignore
-!*.md5
+!*.md
 !*.org
