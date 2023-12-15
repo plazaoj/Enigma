@@ -1,9 +1,56 @@
 #include "maquina.hpp"
+
 maquina::maquina()
 {
   tipo=M4;
   enigma.Modelo(M4);
+
+  // Salir
+  command_map["salir"]=QUIT;
+  command_map["quit"]=QUIT;
+  command_map["exit"]=QUIT;
+
+  // Seleccionar Reflector
+  command_map["ukw"]=SETUKW;
+
+  // Seleccionar ruedas
+  command_map["walze"]=SETWALZE;
+  command_map["ruedas"]=SETWALZE;
+
+  // Configurar anillo
+  command_map["ring"]=SETRINGS;
+
+  // Posicion de inicio
+  command_map["start"]=SETSTART;
+  command_map["key"]=SETWALZE;
+
+  command_map["reset"]=RESETSTA;
+  // Stecker
+  command_map["plug"]=PLUGSTEK;
+  command_map["stecker"]=PLUGSTEK;
+  command_map["unplug"]=UNPLUGST;
+  
+  // Tipo de maquina
+  command_map["tipo"]=CAMBIAMAQ;
+  command_map["M4"]=M4; // Militar M3 y M4
+  command_map["KF"]=KF; // Comercial, conexion F (Enigma española)
+  command_map["KC"]=KC;
+  command_map["KD"]=KD;
+  command_map["KS"]=KS;
+
+  // Codificacion
+  command_map["code"]=QCODE;
+  command_map["texto"]=CODETEXT;
+  command_map["fichero"]=CODEFILE;
+
+  // Lista comandos
+  command_map["ayuda"]=LISTACMD;
+  command_map["help"]=LISTACMD;
+  command_map["lista"]=LISTACMD;
+ 
+  
 }
+
 void maquina::WalzeCfg(char *wlz)
 {
   if(tipo==M4)
@@ -76,9 +123,9 @@ maquina::~maquina()
 
   return;
 }
-int maquina::command(int cmd,char *param)
+int maquina::command(int cmd,std::string param)
 {
-  // fprintf(stderr,"cmd %i\n",cmd);
+
   switch(cmd)
   {
   case QCODE:
@@ -94,7 +141,7 @@ int maquina::command(int cmd,char *param)
   case SETWALZE:
       {
 	maqerr(setwalze(param));
-	//	enigma->Reset();
+	enigma.Reset();
 	break;
       }
   case SETRINGS:
@@ -159,7 +206,7 @@ int maquina::command(int cmd,char *param)
     }
   case CAMBIAMAQ:
     {
-      fprintf(stdout,"%s\n",param);
+      fprintf(stdout,"%s\n",param.data());
       maqerr(cambiamaq(param));
       break;
     }
@@ -168,17 +215,16 @@ int maquina::command(int cmd,char *param)
       maqerr(setukw(param));
       break;
     }
+  case LISTACMD:
+    {
+      Ayuda();
+      break;
+    }
   case NOCMD:
     {
       fprintf(stderr,"Comando desconocido %i\n",cmd);
       break;
     }
-  case SUBERUEDA:
-  case BAJARUEDA:
-  {
-    mueverueda(cmd,param);
-    break;
-  }
   default:
    {
       break;
@@ -186,112 +232,27 @@ int maquina::command(int cmd,char *param)
   }
   return(0);
 }
-int maquina::traducecom(char *comando,char *param)
+int maquina::traducecom(char *comando,std::string &param)
 {
 
-
-  if(extrae(comando,param))
-    {
-      if(comando[0]==EOF)
-	return(QUIT);
-      
-      if ((!strcmp(comando,"quit"))||
-	(!strcmp(comando,"QUIT")) ||
-	  (!strcmp(comando,"salir"))||
-	  (!strcmp(comando,"SALIR")))    
-	return (QUIT);
-      
-      if((!strcmp(comando,"UKW"))||
-	 (!strcmp(comando,"ukw")))
-	return(SETUKW);
-      
-      if((!strcmp(comando,"WALZE"))||
-	 (!strcmp(comando,"walze"))||
-	 (!strcmp(comando,"ruedas"))||
-	 (!strcmp(comando,"RUEDAS")))
-	return(SETWALZE);
-      
-      if ((!strcmp(comando,"RING"))||
-	  (!strcmp(comando,"ring")))
-	return(SETRINGS);
-      
-      if ((!strcmp(comando,"TIPO"))||
-	  (!strcmp(comando,"tipo")))
-	return(CAMBIAMAQ);
-      
-      if((!strcmp(comando,"START"))||
-	 (!strcmp(comando,"start")))
-	return(SETSTART);
-      
-      if((!strcmp(comando,"PLUG"))||
-	 (!strcmp(comando,"plug")))
-	return(PLUGSTEK);
-      
-      if((!strcmp(comando,"M4"))||
-	 (!strcmp(comando,"m4")))
-	return(M4);
-      
-      if((!strcmp(comando,"KC"))||
-	 (!strcmp(comando,"kc")))
-	return(KC);
-      
-      if((!strcmp(comando,"KD"))||
-	 (!strcmp(comando,"kd")))
-	return(KD);
-      
-      if((!strcmp(comando,"KF"))||
-	 (!strcmp(comando,"kf")))
-	return(KF);
-      
-      if((!strcmp(comando,"KS"))||
-	 (!strcmp(comando,"ks")))
-	return(KS);
-      
-      
-      if((!strcmp(comando,"CODE"))||
-	 (!strcmp(comando,"code")))
-	return(QCODE);
-      
-      if((!strcmp(comando,"UNPLUG"))||
-	 (!strcmp(comando,"unplug")))
-	return(UNPLUGST);
-      
-      if((!strcmp(comando,"TEXTO"))||
-	 (!strcmp(comando,"texto")))
-	return(CODETEXT);
-      
-      if((!strcmp(comando,"FILE"))||
-	 (!strcmp(comando,"file"))||
-	 (!strcmp(comando,"fichero"))||
-	 (!strcmp(comando,"FICHERO")))
-	return(CODEFILE);
-      
-      if((!strcmp(comando,"RESET"))||
-	 (!strcmp(comando,"reset")))
-	return(RESETSTA);
-      
-      if((!strcmp(comando,"UP"))||
-	 (!strcmp(comando,"up"))||
-	 (!strcmp(comando,"SUBE"))||
-	 (!strcmp(comando,"sube")))
-	return(SUBERUEDA);
-      
-      if((!strcmp(comando,"DOWN"))||
-	 (!strcmp(comando,"down"))||
-	 (!strcmp(comando,"BAJA"))||
-	 (!strcmp(comando,"baja")))
-	return(BAJARUEDA);
-      
-      return(NOCMD);
-    }
+  std::string cmd=strtok(comando," ");
+  const char *p=strtok(NULL," ");
+  if(p!=NULL)
+    param=p;
   else
-    return(0);
+    param="";
+	       
+  const int CMD=command_map[cmd];
+  if(!CMD)
+    return(-1);
+  else
+    return(CMD);
 }
 
 int maquina::loop()
 {
-  //  char comando[255];
-  char param[50];
+
+  std::string param;
   int cmd=0;
   int quit=0;
 
@@ -311,48 +272,27 @@ int maquina::loop()
   return(0);
 }
 
-int maquina::plug(char *param)
+int maquina::plug(std::string param)
 {
-  if(!strlen(param))
+  if(!param.length())
     return(SINPARAMETRO);
 
-  enigma.Plug(param);
+  enigma.Plug(param.data());
   return(0);
-  // int len;
-  // int i;
-  // char sb[3];
-
-  // if(!strlen(param)) 
-  //   return(SINPARAMETRO);
-
-  // extrae(param,NULL);
-  // len=strlen(param);
-  // sb[2]='\0';
-  // for(i=0;i<len;i+=2)
-  //   {
-  //     sb[0]=param[i];
-  //     sb[1]=param[i+1];
-  //     if(maqerr(enigma->Plug(sb)))
-  // 	fprintf(stderr,"%c - %c\n",sb[0],sb[1]);
-  //   }
-  // return(0);
 }
-int maquina::unplug(char *param)
+int maquina::unplug(std::string param)
 {
-  int i;
-  char sb[3];
-  int len;
+  const int len=param.length();
 
-  if(!strlen(param))
+  if(!len)
     { 
       enigma.UnPlug(0,0);
       return(0);
     }
 
-  extrae(param,NULL);
-  len=strlen(param);
+  char sb[3];
   sb[2]='\0';
-  for(i=0;i<len;i+=2)
+  for(int i=0;i<len;i+=2)
     {
       sb[0]=param[i];
       sb[1]=param[i+1];
@@ -362,234 +302,125 @@ int maquina::unplug(char *param)
 
   return(0);
 }
-int maquina::setwalze(char *param)
+int maquina::setwalze(std::string param)
 {
  
-  if(!strlen(param)) 
+  if(!param.length()) 
     return(SINPARAMETRO);
   
-  extrae(param,NULL);
-  enigma.setWalze(param);
+  enigma.setWalze(param.data());
   return(0);
 }
 
-int maquina::mueverueda(int cmd,char *param)
+int maquina::setring(std::string param)
 {
-  if(!strlen(param)) 
-    return(SINPARAMETRO);
-  
-  extrae(param,NULL);
-  
-  switch(param[0])
-  {
-    case '1':
-      {
-	if (cmd==SUBERUEDA)
-	{
-	  Start[0]++;
-	  Ring[0]++;
-	  if(Start[0]>'Z')
-	    Start[0]='A';
-	  
-	  if(Ring[0]>'Z')
-	    Ring[0]='A';
-	
-	}
-	else
-	{
-	  Start[0]--;
-	  Ring[0]--;
-	  
-	  if(Start[0]<'A')
-	    Start[0]='Z';
-	  
-	  if(Ring[0]<'A')
-	    Ring[0]='Z';
-	}
-	break;
-      }
-      case '2':
-      {
-	if (cmd==SUBERUEDA)
-	{
-	  Start[1]++;
-	  Ring[1]++;
-	  
-	  if(Start[1]>'Z')
-	    Start[1]='A';
-	  
-	  if(Ring[1]>'Z')
-	    Ring[1]='A';
-	
-	}
-	else
-	{
-	  Start[1]--;
-	  Ring[1]--;
-	  
-	  if(Start[1]<'A')
-	    Start[1]='Z';
-	  
-	  if(Ring[1]<'A')
-	    Ring[1]='Z';
-	}      
-      
-	break;
-      }
-      case '3':
-      {
-	if (cmd==SUBERUEDA)
-	{
-	  Start[2]++;
-	  Ring[2]++;
-	  if(Start[2]>'Z')
-	    Start[2]='A';
-	  if(Ring[2]>'Z')
-	    Ring[2]='A';
-	
-	}
-	else
-	{
-	  Start[2]--;
-	  Ring[2]--;
-	  if(Start[2]<'A')
-	    Start[2]='Z';
-	  if(Ring[2]<'A')
-	    Ring[2]='Z';
-	}      
-	break;
-      }
-      default:
-	return(WALZE_RUEDAS_INCORRECTAS);
-    }
-
-  enigma.setRing(Ring);
-  enigma.setKey(Start);
-
-  return(0);
-}
-
-int maquina::setring(char *param)
-{
-  if(!strlen(param)) 
+  if(!param.length()) 
     return(SINPARAMETRO);
  
-  extrae(param,NULL);
-  strcpy(Ring,param);
+  strcpy(Ring,param.data());
   enigma.setRing(Ring);
   return(0);
 
 }
 
-int maquina::setstart(char *param)
+int maquina::setstart(std::string param)
 {
-  if(!strlen(param)) 
+  if(!param.length())
     return(SINPARAMETRO);
   
-  extrae(param,NULL);
-  strcpy(Start,param);
+  strcpy(Start,param.data());
   enigma.setKey(Start);
   return(0);
 }
-// int maquina::setzusats(char *param)
-// {
- 
-//   if(!strlen(param)) 
-//     return(SINPARAMETRO);
-  
-//   extrae(param,NULL);
-//   return(enigma->ZusatCfg(param));
-// }
-int maquina::codefile(char *param)
+
+
+int maquina::codefile(std::string param)
 {
-  int k;
-  int ci,co;
-  FILE *of,*fi;
-  char outf[50];
   
-  if(!strlen(param))
+  if(!param.length())
     return(SINPARAMETRO);
+
+
+  char *filein=strtok(param.data()," ");
+  char *fileout=strtok(NULL," ");
   
-  if(!extrae(param,outf))
+  if(!filein)
     return(SINPARAMETRO);
-  
-  fi=fopen(param,"r");
+	   
+  FILE *fi=fopen(filein,"r");
   
   if(!fi) 
     return(ERRFICHERO);
+  
+  FILE *of=fileout!=NULL ? fopen(fileout,"w"): stdout;
 
-  if(extrae(outf,NULL))
-  {
-    of=fopen(outf,"w");
-    if(!of)
-    {
-      fclose(fi);
-      return(ERRFICHERO);
-    }
-    fprintf(stdout,"Fichero de salida: %s\n",outf);
-    enigma.PrintConfig();
-  } 
-  else
-    of=stdout;
-    fprintf(of,"\n");
-  k=0;
+  char ci,co;
+  int k=0;
+  const int grupo = tipo==M4 ? 5 :4;
   do
-  {
+    {
       do
-      {
-	ci=fgetc(fi);
-      } while((!(((ci>='a')&&(ci<='z'))||((ci>='A')&&(ci<='Z'))||(ci=='-')))&&(ci!=EOF));
+	{
+	  ci=fgetc(fi);
+	} while((!(((ci>='a')&&(ci<='z'))||((ci>='A')&&(ci<='Z'))||(ci=='-')))&&(ci!=EOF));
       if(ci!=EOF)
-      {
-	co=enigma.Code(ci);
-	fprintf(of,"%c",co);
-      }
-
-  } while(ci!=EOF);
+	{
+	  co=enigma.Code(ci);
+	  fprintf(of,"%c",co);
+	  k++;
+	  if(!(k%grupo))
+	    fprintf(of," ");
+	}
+      
+    } while(ci!=EOF);
   fprintf(of,"\n");
   if(of!=stdout) 
     fclose(of);
   
   fclose(fi);
-
+  
   return(0);
 }
-int maquina::quickcode(char *param)
+
+
+int maquina::quickcode(std::string param)
 {
 
-  int codelen;
-  int i;
-  char ci;
-  codelen=strlen(param);
+ int codelen=param.length();
 
   if(codelen<=0)
     return(SINPARAMETRO);
 
-  for(i=0;i<codelen;i++)
+  int k=0;
+  const int grupo = tipo==M4 ? 5 :4;
+  
+  for(int i=0;i<codelen;i++)
     {
-      ci=param[i];
+      const char ci=param[i];
       if( 
 	 ((ci>='a')&&(ci<='z'))||
 	 ((ci>='A')&&(ci<='Z')))
-	fprintf(stdout,"%c",enigma.Code(ci));
+	{
+	  fprintf(stdout,"%c",enigma.Code(ci));
+	  k++;
+	  if(!(k%grupo))
+	    fprintf(stdout," ");
+	}
     }
   fprintf(stdout,"\n");
   return(0);
 
 }
 
-int maquina::codetext(char *param)
+int maquina::codetext(std::string param)
 {
-  int k;
-  int ci,co;
   FILE *of;
 
-  if(strlen(param))
+  if(param.length()>0)
   {
-    extrae(param,NULL);
-    of=fopen(param,"w");
+    of=fopen(param.data(),"w");
     if(!of)
-       return(ERRFICHERO);
+      return(ERRFICHERO);
     enigma.PrintConfig();
   } 
   else
@@ -597,45 +428,46 @@ int maquina::codetext(char *param)
       
   fprintf(stdout,"ESC para salir\n");
 
-  k=0;
+  int k=0;
+  char ci;
   do
-  {
-    do
     {
+      
       do
-      {
-	ci=fgetc(stdin);
-	if(ci==10)
 	{
-	  fprintf(of,"\n");
-	  k=0;
-	}
-      } while((!(((ci>='a')&&(ci<='z'))||((ci>='A')&&(ci<='Z'))||(ci=='-')))&&(ci!=27));
-      if(ci!=27)
-      {
-	co=enigma.Code(ci);
-	fprintf(of,"%c",co);
-      }
-      k++;
-    }while ((k<5)&&(ci!=27));
-    fprintf(of," ");
-    k=0;
-  } while(ci!=27);
+	  
+	  do
+	    {
+	      ci=fgetc(stdin);
+	      if(ci==10)
+		{
+		  fprintf(of,"\n");
+		  k=0;
+		}
+	    } while((!(((ci>='a')&&(ci<='z'))||((ci>='A')&&(ci<='Z'))||(ci=='-')))&&(ci!=27));
+	  if(ci!=27)
+	    {
+	      const char co=enigma.Code(ci);
+	      fprintf(of,"%c",co);
+	    }
+	  k++;
+	}while ((k<5)&&(ci!=27));
+      fprintf(of," ");
+      k=0;
+    } while(ci!=27);
   
   if(of!=stdout) 
     fclose(of);
-
+  
   while(fgetc(stdin)!=10);
 
   return(0);
 }
-int maquina::cambiamaq(char *param)
+int maquina::cambiamaq(std::string param)
 {
-  if(!strlen(param)) 
+  if(!param.length()) 
     return(SINPARAMETRO);
-
-  extrae(param,NULL);
-
+  
   if(param[0]=='M')
     {
       tipo=M4;
@@ -676,22 +508,19 @@ int maquina::cambiamaq(char *param)
   
   else
     return(TIPOINCORRECTO);
-  
-  
 
   return(0);
 }
 
 
-int maquina::setukw(char *param)
+int maquina::setukw(std::string param)
 {
-  if(!strlen(param)) 
+  if(!param.length()) 
     return(SINPARAMETRO);
   
   if(tipo==M4)
     {
-      extrae(param,NULL);
-      enigma.setUkw(param);
+      enigma.setUkw(param.data());
       return(0);
     }
   else
@@ -722,12 +551,12 @@ int maquina::maqerr(int err)
 	fprintf(stderr,"Falta parametro\n");
 	break;
       }
-    case WALZE_RUEDAS_REPETIDAS:
+    case RUEDAS_REPETIDAS:
       {
 	fprintf(stderr,"Ruedas repetidas");
 	break;
       }
-    case WALZE_RUEDAS_INCORRECTAS:
+    case RUEDAS_INCORRECTAS:
       {
 	fprintf(stderr,"Ruedas incorrectas\n");
 	break;
@@ -747,11 +576,6 @@ int maquina::maqerr(int err)
 	fprintf(stderr,"Letras del Stecker incorrectas\n");
 	break;
       }
-    // case ZUSAT_INCORRECTO:
-    //   {
-    // 	fprintf(stderr,"Zusatswalze incorrecta\n");
-    // 	break;
-    //   }
     case UKW_INCORRECTO:
       {
 	fprintf(stderr,"Umkerwehr incorrecto\n");
@@ -766,76 +590,52 @@ int maquina::maqerr(int err)
   return(err);
 }
 
-int extrae(char *a,char *b)
+
+void maquina::Ayuda()
 {
-  int i=0,j=0;
-  int len=0;
-  int flag=0;
-  char lab[50];
-  if(!a) 
-    return(0);
+  printf("Lista de acciones y comandos: \n");
+  printf("-----------------------------\n");
+  printf("*  Maquina M4 (Kriegsmarine) *\n");
+  printf("   ruedas YXXX || walze  YXXX     Configurar ruedas\n");
+  printf("                              con Y={B|G} corresponde a la rueda 'extra' Beta o Gamma\n");
+  printf("                                  X={1|2|3|4|5|6|7|8}  sin repetir numero de rueda\n\n");
+  printf("   ukw {B|C}                      Seleccion de la rueda reflectora.\n\n");
+  printf("   ring xxxx                      Configurar el anillo de las ruedas\n");
+  printf("                              con x={A...Z}\n\n");
+  printf("   start xxxx | key xxxx          Configurar la posición de inicio ruedas\n");
+  printf("                              con x={A...Z}\n\n");
+  printf("  NOTA: La configuracion BBxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector B\n");
+  printf("      y la configuracion CGxxx, con anillo Axxx e inicio Axxx es equivalente a una maquina M3 (Wehrmacht) con reflector C\n\n");
+  printf("  plug ABCDEFGH...                Conecta el Stecker\n");
+  printf("                                  Conecta A con B, C con D, E con F, etc...\n\n");
 
-  len=strlen(a);
-  while((!letra(a[i],2))&&(i<len)) // Elimina los primeros espacios
-      i++;
-  if(i>=len) 
-    return(0);
+  printf("*  Maquina K (comercial) *\n");
+  printf("   ruedas XXX || walze  XXX       Configurar ruedas\n");
+  printf("                              con X={1|2|3} sin repetir número de rueda\n\n");
+  printf("   ring xxxx                      Configurar el anillo del reflector y  ruedas\n");
+  printf("                              con x={A...Z}\n\n");
+  printf("   start xxxx | key xxxx          Configurar la posición del reflector y ruedas\n");
+  printf("                              con x={A...Z}\n\n");
 
-  while(letra(a[i],2)&&(i<len)) // Copia el primer texto
-  {
-    lab[j]=a[i];
-    i++;
-    j++;
-  }
-  lab[j]='\0';
-  if(b)
-  {
-    while((!letra(a[i],2))&&(i<len)) //elimina m�s espacios
-      i++;
-    j=0;
-    while(i<len)
-    {
-      b[j]=a[i];
-      i++;
-      j++;
-    }
-    b[j]='\0';
-  }
-  strcpy(a,lab);
-  return(1);
-}
-int letra(char c,int num)
-{
-  char abc[]="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  char Num[]="0123456789";
-  char esp[]=".-";
-  int len;
 
-  len=strlen(abc);
-  for(int i=0;i<len;i++)
-  {
-    if(c==abc[i]) 
-      return(1);
-  }
- 
-  if (num)
-  {
-    len=strlen(Num);
-    for(int i=0;i<len;i++)
-    {
-      if(c==Num[i])
-	return(2);
-    }
-  }
-  if(num!=1)
-  {
-    len=strlen(esp);
-    for(int i=0;i<len;i++)
-    {
-      if(c==esp[i])
-	return(3);
-    }
-  }
-  
-  return(0);
+  printf("*  Tipo de máquina  *\n");
+  printf("  tipo {M4|KF|KC|KD|KS}           Selecciona tipo de máquina\n");
+  printf("                                  Se puede omitir el comando 'tipo'\n");
+  printf("  M4                              Máquina  militar (Kriegsmarine/Wehrmacht)\n");
+  printf("  KF                              Modelo comercial usado en España durante la guerra civil\n");  
+  printf("  KD | KD | KS                    Máquina  comercial, con distintos cableados de ruiedas\n\n");
+
+  printf("*  Otros comandos  *\n");
+  printf("  reset                           Restablece la posición de inicio\n");
+  printf("  texto                           Modo edicion para codificar un texto. salir con ESC\n");
+  printf("  code <texto>                    Codifica el <texto>\n");
+  printf("  fichero <filein> [fileout]      Abre y codifica el <filein>, y lo escribe en <fileout>\n");
+  printf("                                  Si no se indica fileout, escribe en la consola\n");
+  printf("  salir | quit | exit | ctrl+d    Salir\n");
+  printf("  ayuda | help | lista            Muestra esta ayuda\n");
+  printf("\n-----------------------------\n");
+  return;
+
+
+
 }

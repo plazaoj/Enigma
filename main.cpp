@@ -2,23 +2,27 @@
 #include <stdio.h>
 #include <string.h>
 #include <getopt.h>
+
+
+void Ayuda();
+
 int main(int argc, char **argv)
 {
 #ifdef ENIGMAVERSION
-  fprintf(stdout,"Enigma K/M4 - %s\n",ENIGMAVERSION);
+  fprintf(stdout,"Enigma M4 / K\nVers/commit: %s\n",ENIGMAVERSION);
   fprintf(stdout,"%s\n",__DATE__);
 #endif
-  int i,j,m;
+
   maquina EnigmaK;
   int next_opt;
   const char* const sopt="hw:r:k:u:s:t:";
   const struct option lopt[]={
     {"help",0,NULL,'h'},
     {"walzen",1,NULL,'w'},
-    {"ringstellung",1,NULL,'r'},
-    {"spruchsschlussel",1,NULL,'k'},
+    {"rings",1,NULL,'r'},
+    {"start",1,NULL,'k'},
     {"ukw",1,NULL,'u'},
-    {"steckbrett",1,NULL,'s'},
+    {"stecker",1,NULL,'s'},
     {"tipo",1,NULL,'t'}
   };    
   
@@ -30,7 +34,7 @@ int main(int argc, char **argv)
 	case 't':
 	  {
 	    EnigmaK.cambiamaq(optarg);
-
+	    break;
 	  }
 	case 'w':
           {
@@ -64,7 +68,7 @@ int main(int argc, char **argv)
 	case 'h':
 	default:
           {
-	    //            Ayuda();
+	    Ayuda();
             return(0);
           }
         } 
@@ -74,5 +78,19 @@ int main(int argc, char **argv)
   EnigmaK.loop();
 
   return(0);
+
+}
+
+
+void Ayuda()
+{
+  fprintf(stdout,"Opciones:\n");
+  fprintf(stdout,"--help,   -h               Muestra esta ayuda\n");
+  fprintf(stdout,"--walzen, -w  <B123>       Selecciona ruedas. Por defecto B123.\n");
+  fprintf(stdout,"--rings,  -r  <ABCD>       Selecciona configuración del anillo. or defecto AAAA)\n");
+  fprintf(stdout,"--start,  -k  <ABCD>       Selecciona posición de inicio. Por defecto AAAA)\n");
+  fprintf(stdout,"--ukw,    -u  <B>          Selecciona reflector (B|C). Por defecto B\n");
+  fprintf(stdout,"--stecker,-s  <ABCDEF...>  Conecta Stecker (ej: A con B, C con D, etc...) Por defecto no hay pares conectados\n");
+  fprintf(stdout,"--tipo,   -t  <M4|KF>      Selecciona tipo de máquina: M4 (militar) o KF (Comercial). Por defecto M4\n");
 
 }
