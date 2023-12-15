@@ -19,7 +19,7 @@ En total, el **modelo K** tenía un total de **1.782.206.400** configuraciones p
 
 ## Compilación
 
-    make
+    $: make
 
 ## Ejecución
 
