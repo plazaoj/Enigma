@@ -1,0 +1,7 @@
+*
+!makefile
+!*.cpp
+!*.hpp
+!.gitignore
+!*.md5
+!*.org
