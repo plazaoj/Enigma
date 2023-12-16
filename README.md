@@ -58,7 +58,7 @@ La línea de comando acepta varios comandos para configurar y usar la máquina:
 - `plug ABCDEF...` : Conecta dos letras en el clavijeros (*steckerbrett*). Se conectan por pares: A con B, C on D, E con F, etc...
 - `unplug` : Desconecta el clavijero
 
-**Nota**: Usando solo las ruedas 1 a 5, y con configuración de ruedas BBxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector B. 
+**Nota**: Usando solo las ruedas 1 a 5, y con configuración de ruedas BBxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector B.       
 **Nota**: Usando solo las ruedas 1 a 5, y con configuración de ruedas CGxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector C.
 
 ### Codificación
