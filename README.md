@@ -38,7 +38,7 @@ donde
 
 La línea de comando acepta varios comandos para configurar y usar la máquina:
 
-**Lista de acciones y comandos **
+## Lista de acciones y comandos
 
 ### Tipo de máquina
 
@@ -52,18 +52,18 @@ La línea de comando acepta varios comandos para configurar y usar la máquina:
 
 ### Modelo M4
 - `ruedas YXXX` o `walze YXXX` : donde Y = {B|G} y X={1...8}. Selecciona el orden de las ruedas.
-- `ukw X' : con X={B|C}, selecciona el reflector.
+- `ukw X` : con X={B|C}, selecciona el reflector.
 - `ring XXXX` : con X={A...Z}, configura el anillo de la rueda extra, y las otras ruedas.
 - `start XXXX` o `key XXXX` : con X={A...Z}, selecciona la posición de inicio.
 - `plug ABCDEF...` : Conecta dos letras en el clavijeros (*steckerbrett*). Se conectan por pares: A con B, C on D, E con F, etc...
 - `unplug` : Desconecta el clavijero
 
-**Nota**: Usando solo las ruedas 1a 5, y con configuración de ruedas BBxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector B. 
-**Nota**: Usando solo las ruedas 1a 5, y con configuración de ruedas CGxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector C.
+**Nota**: Usando solo las ruedas 1 a 5, y con configuración de ruedas BBxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector B. 
+**Nota**: Usando solo las ruedas 1 a 5, y con configuración de ruedas CGxxx,  anillos Axxx e inicio Axxx, es equivalente al modelo  M3 de la Wehrmacht con reflector C.
 
 ### Codificación
 
-- `texto`: Modo edición para codificar un texto. Salir co ESC+return.
+- `texto`: Modo edición para codificar un texto. Salir con `ESC`+`Return`.
 - `code <texto>`: Codifica el texto.
 - `fichero <filein> [fileout]`: Lee y codifica `filein`, y lo guarda en `fileout`. Si no se especifica `fileout`, entonces lo saca por pantalla (`stdout`)
 
