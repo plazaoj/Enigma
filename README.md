@@ -15,7 +15,7 @@ La configuración de una máquina consta de 3 pasos:
 - Posición de inicio: Letras que se ven por las ventanillas al iniciar el proceso de codificación/descodificación (26 posiciones por cada rueda)
 - Conexión del clavijero (solo M3/M4): Intercambia la acción de pares de letras tanto en el teclado, como en las bombillas que indican la letra codificada.
 
-En total, el **modelo K** tenía un total de **1.782.206.400** configuraciones posibles. Por su parte, el **modelo M3** tenía **49.649.797.445.648.384**  configuraciones, y el **modelo M4**, **4.245.426.546.133.172.224**. Aunque en la realidad varias  posiciones son *casi* equivalentes, y permitirían una decodificación parcial un mensaje.
+En total, el **modelo K** tenía un total de **1.252.962.387.456** configuraciones posibles. Por su parte, el **modelo M3** tenía **49.649.797.445.648.384**  configuraciones, y el **modelo M4**, **4.245.426.546.133.172.224**. Aunque en la realidad varias  posiciones son *casi* equivalentes, y permitirían una decodificación parcial un mensaje.
 
 ## Compilación
 
