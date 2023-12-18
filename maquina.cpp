@@ -222,7 +222,7 @@ int maquina::command(int cmd,std::string param)
     }
   case NOCMD:
     {
-      fprintf(stderr,"Comando desconocido %i\n",cmd);
+      //      fprintf(stderr,"Comando desconocido %i\n",cmd);
       break;
     }
   default:
@@ -234,6 +234,8 @@ int maquina::command(int cmd,std::string param)
 }
 int maquina::traducecom(char *comando,std::string &param)
 {
+  if(strlen(comando)<1)
+    return -1;
 
   std::string cmd=strtok(comando," ");
   const char *p=strtok(NULL," ");
