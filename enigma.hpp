@@ -44,11 +44,11 @@ public:
    ENIGMA();
   char Code(char cin);
   void Modelo(int md);
-  int setRing(char *Ring);
-  int setKey(char *Key);
-  int setWalze(char *Wz);
-  int setUkw(char *ukw);
-  int Plug(char *plug);
+  int setRing(const char *Ring);
+  int setKey(const char *Key);
+  int setWalze(const char *Wz);
+  int setUkw(const char *ukw);
+  int Plug(const char *plug);
   int UnPlug(char c1, char c2);
   void PrintConfig();
   void getRing();

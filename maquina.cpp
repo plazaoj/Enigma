@@ -341,7 +341,7 @@ int maquina::codefile(std::string param)
     return(SINPARAMETRO);
 
 
-  char *filein=strtok(param.data()," ");
+  char *filein=strtok((char*) param.data()," ");
   char *fileout=strtok(NULL," ");
   
   if(!filein)

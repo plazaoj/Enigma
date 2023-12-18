@@ -156,7 +156,7 @@ void ENIGMA::Modelo(int md)
     }
   return;
 }
-int ENIGMA::setRing(char *ring)
+int ENIGMA::setRing(const char *ring)
 {
 
   int i;
@@ -175,7 +175,7 @@ int ENIGMA::setRing(char *ring)
   return(0);
 
 }
-int ENIGMA::setKey(char *key)
+int ENIGMA::setKey(const char *key)
 {
 
   int i;
@@ -195,7 +195,7 @@ int ENIGMA::setKey(char *key)
   return(0);
 
 }
-int ENIGMA::setWalze(char *Wz)
+int ENIGMA::setWalze(const char *Wz)
 {
   int i;
 
@@ -260,7 +260,7 @@ int ENIGMA::setWalze(char *Wz)
   return(0);
 
 }
-int ENIGMA::setUkw(char *ukw)
+int ENIGMA::setUkw(const char *ukw)
 {
   
 
@@ -282,7 +282,7 @@ int ENIGMA::setUkw(char *ukw)
 
 }
 
-int ENIGMA::Plug(char *plug)
+int ENIGMA::Plug(const char *plug)
 {
   int plen,i,flag=0;
   if(!plug) return(0);
