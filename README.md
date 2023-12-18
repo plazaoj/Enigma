@@ -6,7 +6,7 @@ Simulador de dos modelos de máquina enigma:
 
 - **Enigma Comercial (K)**: Versión comercial de la máquina, que fue exportada entre otros al bando sublevado durante la guerra civil en España. Poseía 3 ruedas (I, II, III) que se podían instalar en cualquier orden, y un único reflector configurable. 
 
-- **Enigma Militar (M3/M4)**: Máquina usada por la Kriegsmarine. Usa 3 ruedas de un set de 8, y dos ruedas extra (las *Zusatzwalzen* **B**eta y **G**amma), que se combinan con dos reflectores (B y C).  En ciertas configuraciones, era equivalente a la máquina M3, usada por la Wehrmacht y Luftwaffe,  cuyo set era de 5 ruedas, y reflectores B y C. A diferencia del modelo comercial, los reflectores eran fijos, pero a cambio poseía un clavijero (*steckerbrett*), que intercambiaba parejas de teclas. Se usaban 10 clavijas para intercambiar 10 pares de letras.
+- **Enigma Militar (M3/M4)**: Máquina usada por la Kriegsmarine. Usa 3 ruedas de un set de 8 (I - VIII), y dos ruedas extra (las *Zusatzwalzen* **B**eta y **G**amma), que se combinan con dos reflectores (B y C).  En ciertas configuraciones, era equivalente a la máquina M3, usada por la Wehrmacht y Luftwaffe,  cuyo set era de 5 ruedas (I-V, idénticas a las de la M4), y reflectores B y C. A diferencia del modelo comercial, los reflectores eran fijos, pero a cambio poseía un clavijero (*steckerbrett*), que intercambiaba parejas de teclas. Se usaban 10 clavijas para intercambiar 10 pares de letras.
 
 La configuración de una máquina consta de 3 pasos:
 
@@ -15,7 +15,7 @@ La configuración de una máquina consta de 3 pasos:
 - Posición de inicio: Letras que se ven por las ventanillas al iniciar el proceso de codificación/descodificación (26 posiciones por cada rueda)
 - Conexión del clavijero (solo M3/M4): Intercambia la acción de pares de letras tanto en el teclado, como en las bombillas que indican la letra codificada.
 
-En total, el **modelo K** tenía un total de **1.252.962.387.456** configuraciones posibles. Por su parte, el **modelo M3** tenía **49.649.797.445.648.384**  configuraciones, y el **modelo M4**, **4.245.426.546.133.172.224**. Aunque en la realidad varias  posiciones son *casi* equivalentes, y permitirían una decodificación parcial un mensaje.
+En total, el **modelo K** tenía un total de **1.252.962.387.456** configuraciones posibles. Por su parte, el **modelo M3** tenía **49.649.797.445.648.384**  configuraciones, y el **modelo M4**, **4.245.426.546.133.172.224**. Aunque en la realidad varias posiciones son *casi* equivalentes, y permitirían la  decodificación parcial de un mensaje.
 
 ## Compilación
 
