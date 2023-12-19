@@ -1,7 +1,7 @@
 VER=`git describe --abbrev=5 --always --tags`
 HPP=enigma.hpp ruedas.hpp maquina.hpp
 OBJ=enigma.o ruedas.o main.o maquina.o
-CFLAG=-Wall  -O3 -D ENIGMAVERSION=\"$(VER)\"
+CFLAG=-I. -Wall  -O3 -D ENIGMAVERSION=\"$(VER)\"
 
 all: Enigma
 
