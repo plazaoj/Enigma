@@ -17,9 +17,15 @@ La configuración de una máquina consta de 3 pasos:
 
 En total, el **modelo K** tenía un total de **1.252.962.387.456** configuraciones posibles. Por su parte, el **modelo M3** tenía **49.649.797.445.648.384**  configuraciones, y el **modelo M4**, **4.245.426.546.133.172.224**. Aunque en la realidad varias posiciones son *casi* equivalentes, y permitirían la  decodificación parcial de un mensaje.
 
+
+## Dependencias
+
+   [GNU Readline Lybrarhy (libreadline)](https://tiswww.case.edu/php/chet/readline/rltop.html)
+
 ## Compilación
 
     $: make
+
 
 ## Ejecución
 
