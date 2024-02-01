@@ -20,7 +20,7 @@ En total, el **modelo K** tenía un total de **1.252.962.387.456** configuracion
 
 ## Dependencias
 
-   [GNU Readline Lybrarhy (libreadline)](https://tiswww.case.edu/php/chet/readline/rltop.html)
+   [GNU Readline Library (libreadline)](https://tiswww.case.edu/php/chet/readline/rltop.html)
 
 ## Compilación
 
